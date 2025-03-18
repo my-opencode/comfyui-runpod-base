@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     && ln -sf /usr/bin/python3.10 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-RUN pip install runpod requests
 WORKDIR /
 RUN mkdir /common && mkdir /cpu && mkdir /gpu;
 COPY common/install.sh common/rp_handler.py /common
