@@ -1,0 +1,62 @@
+services:
+  comfyui-installer:
+    build:
+      context: .
+    image: comfyui_runpod_base
+    volumes:
+      - ./volume:/workspace
+    entrypoint: /common/install.sh
+    profiles: [install]
+
+  comfyui-cpu:
+    image: comfyui_runpod_base:latest
+    volumes:
+      - ./volume:/workspace
+    ports:
+      - "8188:8188"
+    entrypoint: /cpu/start.sh
+    network_mode: host
+    profiles: [start_cpu]
+
+  comfyui-endpoint-cpu:
+    image: comfyui_runpod_base:latest
+    volumes:
+      - ./volume:/workspace
+    environment:
+      - SERVE_API_LOCALLY=true
+    ports:
+      - "8000:8000"
+      - "8188:8188"
+    entrypoint: /cpu/endpoint_start.sh
+    network_mode: host
+    profiles: [endpoint_cpu]
+
+  comfyui:
+    image: comfyui_runpod_base:latest
+    volumes:
+      - ./volume:/workspace
+    ports:
+      - "8188:8188"
+    entrypoint: /gpu/start.sh
+    network_mode: host
+    profiles: [start]
+
+  comfyui-endpoint:
+    image: comfyui_runpod_base:latest
+    volumes:
+      - ./volume:/workspace
+    environment:
+      - SERVE_API_LOCALLY=true
+    ports:
+      - "8000:8000"
+      - "8188:8188"
+    entrypoint: /gpu/endpoint_start.sh
+    network_mode: host
+    profiles: [endpoint]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
