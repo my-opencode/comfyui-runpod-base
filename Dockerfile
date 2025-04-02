@@ -35,3 +35,5 @@ RUN chmod +x /common/install.sh \
     && chmod +x /cpu/start.sh \
     && chmod +x /gpu/endpoint_start.sh \
     && chmod +x /gpu/start.sh
+
+CMD ["/common/keep-alive.sh"]
