@@ -29,3 +29,9 @@ RUN mkdir /common && mkdir /cpu && mkdir /gpu;
 COPY common/install.sh common/keep-alive.sh common/rp_handler.py common/logo.txt /common
 COPY cpu/endpoint_start.sh cpu/start.sh /cpu
 COPY gpu/endpoint_start.sh gpu/start.sh /gpu
+RUN chmod +x /common/install.sh \
+    && chmod +x /common/keep-alive.sh \
+    && chmod +x /cpu/endpoint_start.sh \
+    && chmod +x /cpu/start.sh \
+    && chmod +x /gpu/endpoint_start.sh \
+    && chmod +x /gpu/start.sh
