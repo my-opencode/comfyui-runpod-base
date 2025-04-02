@@ -26,6 +26,6 @@ RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 
 WORKDIR /
 RUN mkdir /common && mkdir /cpu && mkdir /gpu;
-COPY common/install.sh common/keep-alive.sh common/rp_handler.py /common
+COPY common/install.sh common/keep-alive.sh common/rp_handler.py common/logo.txt /common
 COPY cpu/endpoint_start.sh cpu/start.sh /cpu
 COPY gpu/endpoint_start.sh gpu/start.sh /gpu
